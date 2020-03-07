@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_07_162648) do
+ActiveRecord::Schema.define(version: 2020_03_07_164202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,10 +21,19 @@ ActiveRecord::Schema.define(version: 2020_03_07_162648) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "dns_records_hostnames", id: false, force: :cascade do |t|
+    t.bigint "dns_record_id", null: false
+    t.bigint "hostname_id", null: false
+    t.index ["dns_record_id"], name: "index_dns_records_hostnames_on_dns_record_id"
+    t.index ["hostname_id"], name: "index_dns_records_hostnames_on_hostname_id"
+  end
+
   create_table "hostnames", force: :cascade do |t|
     t.string "hostname"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "dns_records_hostnames", "dns_records"
+  add_foreign_key "dns_records_hostnames", "hostnames"
 end

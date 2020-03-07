@@ -5,4 +5,8 @@ RSpec.describe(DnsRecord, type: :model) do
     it { should validate_presence_of(:ip) }
     it { should validate_uniqueness_of(:ip) }
   end
+
+  describe 'associations' do
+    it { should have_many(:hostnames).through(:dns_records_hostnames) }
+  end
 end
