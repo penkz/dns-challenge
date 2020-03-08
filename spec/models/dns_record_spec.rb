@@ -8,5 +8,6 @@ RSpec.describe(DnsRecord, type: :model) do
 
   describe 'associations' do
     it { should have_many(:hostnames).through(:dns_records_hostnames) }
+    it { should accept_nested_attributes_for(:hostnames) }
   end
 end

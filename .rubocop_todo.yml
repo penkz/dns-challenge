@@ -24,7 +24,7 @@ Layout/ExtraSpacing:
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 198
+  Max: 120
 
 # Offense count: 1
 # Cop supports --auto-correct.
