@@ -27,6 +27,7 @@ gem('rack-cors')
 gem('rubocop', require: false)
 gem('rubocop-shopify', require: false)
 gem('faker')
+gem('mutations')
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,5 +1,8 @@
 class DnsRecordsController < ApplicationController
-  def index; end
+  def index
+    render(json: { hey: 'Hello' })
+    # DnsRecord.joins(:hostnames).where(hostnames: { hostname: ['dolor.com', 'ipsum.com'] }).group(:id).having('count(*) = 2')
+  end
 
   def create
     @resource = DnsRecord.new(dns_record_params)

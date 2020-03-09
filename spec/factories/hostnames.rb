@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :hostname do
-    hostname { "MyString" }
+    hostname { Faker::Internet.domain_name }
   end
 end
