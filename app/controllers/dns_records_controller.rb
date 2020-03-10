@@ -1,12 +1,13 @@
 class DnsRecordsController < ApplicationController
   def index
-    excludes = split_at_comma(params[:excludes])
-    includes = split_at_comma(params[:includes])
-
-    @records = DnsRecords::Index.run(page: params[:page], includes: includes, excludes: excludes)
+    @records = DnsRecords::Index.run(
+      page: params[:page],
+      includes: split_at_comma(params[:includes]),
+      excludes: split_at_comma(params[:excludes])
+    )
 
     if @records.success?
-      render(json: @records.result)
+      render(@records.result)
     else
       render(json: @records.errors.message, status: :bad_request)
     end
@@ -26,9 +27,5 @@ class DnsRecordsController < ApplicationController
 
   def dns_record_params
     params.require(:dns_records).permit(:ip, hostnames_attributes: [:hostname])
-  end
-
-  def split_at_comma(str)
-    str&.split(',')
   end
 end

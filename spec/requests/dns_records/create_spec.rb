@@ -34,8 +34,6 @@ RSpec.describe('Create DNS Records', type: :request) do
       { 'errors' => instance_of(Hash) }
     end
 
-    let(:json_response) { JSON.parse(response.body) }
-
     context 'with valid attributes' do
       it 'returns 201 created' do
         post dns_records_path, params: valid_attributes
@@ -59,7 +57,7 @@ RSpec.describe('Create DNS Records', type: :request) do
     end
 
     context 'with invalid attributes' do
-      it 'returns 201 created' do
+      it 'returns 422 unprocessable entity' do
         post dns_records_path, params: invalid_attributes
         expect(response).to(have_http_status(:unprocessable_entity))
       end

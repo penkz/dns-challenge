@@ -25,7 +25,7 @@ RSpec.describe(DnsRecords::Index, type: :service) do
   end
 
   describe '.run!' do
-    context 'when includes and excludes params are omitted', focus: true do
+    context 'when includes and excludes params are omitted' do
       let(:expected_result) do
         {
           records: [
@@ -84,12 +84,12 @@ RSpec.describe(DnsRecords::Index, type: :service) do
         }
       end
 
-      it 'returns all dns_records' do
+      it 'returns matching dns_records' do
         expect(described_class.run!(includes: ['dolor.com', 'ipsum.com'], page: 1)).to(match(expected_result))
       end
     end
 
-    context 'when excludes array is present with one value', focus: true do
+    context 'when excludes array is present with one value' do
       let(:expected_result) do
         {
           records: [
@@ -111,7 +111,7 @@ RSpec.describe(DnsRecords::Index, type: :service) do
       end
     end
 
-    context 'when excludes array is present with multiple values', focus: true do
+    context 'when excludes array is present with multiple values' do
       let(:expected_result) do
         {
           records: [
@@ -128,6 +128,28 @@ RSpec.describe(DnsRecords::Index, type: :service) do
 
       it 'returns matching dns_records' do
         expect(described_class.run!(excludes: ['amet.com', 'sit.com'], page: 1)).to(match(expected_result))
+      end
+    end
+
+    context 'when includes and excludes arrays are present' do
+      let(:expected_result) do
+        {
+          records: [
+            { id: dns_record.id, ip_address: dns_record.ip.to_s },
+          ],
+          related_hostnames: [
+            { count: 1, hostname: 'lorem.com' },
+          ],
+          total_records: 1,
+        }
+      end
+
+      it 'returns matching dns_records' do
+        expect(described_class.run!(
+          includes: ['dolor.com', 'ipsum.com'],
+          excludes: ['amet.com'],
+          page: 1
+        )).to(match(expected_result))
       end
     end
   end
